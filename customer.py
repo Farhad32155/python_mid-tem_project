@@ -1,4 +1,5 @@
 from tkinter import*
+from turtle import width
 from PIL import Image, ImageTk
 from tkinter import ttk
 
@@ -196,6 +197,33 @@ class Cust_Win:
 
         scroll_x.config(command=self.Cust_Details_Table.xview)
         scroll_y.config(command=self.Cust_Details_Table.yview)
+
+        self.Cust_Details_Table.heading('ref', text='Refer No')
+        self.Cust_Details_Table.heading('name', text='Name')
+        self.Cust_Details_Table.heading('mother', text='Mother Name')
+        self.Cust_Details_Table.heading('gender', text='Gender')
+        self.Cust_Details_Table.heading('post', text='PostCode')
+        self.Cust_Details_Table.heading('mobile', text='Mobile')
+        self.Cust_Details_Table.heading('email', text='Email')
+        self.Cust_Details_Table.heading('nationality', text='Nationality')
+        self.Cust_Details_Table.heading('idproof', text='Id Proof')
+        self.Cust_Details_Table.heading('idnumber', text='Id Number')
+        self.Cust_Details_Table.heading('address', text='Address')
+
+        self.Cust_Details_Table['show'] = 'headings'
+
+        self.Cust_Details_Table.column('ref', width=100)
+        self.Cust_Details_Table.column('name', width=100)
+        self.Cust_Details_Table.column('mother', width=100)
+        self.Cust_Details_Table.column('gender', width=100)
+        self.Cust_Details_Table.column('post', width=100)
+        self.Cust_Details_Table.column('mobile', width=100)
+        self.Cust_Details_Table.column('email', width=100)
+        self.Cust_Details_Table.column('nationality', width=100)
+        self.Cust_Details_Table.column('idproof', width=100)
+        self.Cust_Details_Table.column('idnumber', width=100)
+        self.Cust_Details_Table.column('address', width=100)
+        self.Cust_Details_Table.pack(fill=BOTH, expand=1)
 
 
 if __name__ == '__main__':
