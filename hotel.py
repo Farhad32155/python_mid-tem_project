@@ -2,6 +2,7 @@ from json.tool import main
 from tkinter import*
 from turtle import width
 from PIL import Image, ImageTk
+from customer import Cust_Win
 
 
 class HotelManagementSystem:
@@ -45,7 +46,7 @@ class HotelManagementSystem:
         btn_frame = Frame(main_frame, bd=4, relief=RIDGE)
         btn_frame.place(x=0, y=35, width=228, height=190)
 
-        cust_btn = Button(btn_frame, text='CUSTOMER', width=22, font=(
+        cust_btn = Button(btn_frame, text='CUSTOMER', command=self.cust_details, width=22, font=(
             'times new roman', 14, 'bold'), bg='black', fg='gold', bd=0, cursor='hand1')
         cust_btn.grid(row=0, column=0, pady=1)
 
@@ -88,6 +89,10 @@ class HotelManagementSystem:
 
         lblimg1 = Label(main_frame, image=self.photoimg5, bd=4, relief=RIDGE)
         lblimg1.place(x=0, y=420, width=230, height=190)
+
+    def cust_details(self):
+        self.new_window = Toplevel(self.root)
+        self.app = Cust_Win(self.new_window)
 
 
 if __name__ == '__main__':
