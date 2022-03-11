@@ -61,6 +61,12 @@ class Cust_Win:
             'arial', 12, 'bold'), padx=2, pady=6)
         label_gender.grid(row=3, column=0, sticky=W)
 
+        combo_gender = ttk.Combobox(
+            labelframeleft, font=('arial', 12, 'bold'), width=27, state='readonly')
+        combo_gender['values'] = ('Male', 'Female', 'Other')
+        combo_gender.current(0)
+        combo_gender.grid(row=3, column=1)
+
         # post code
         lblPostCode = Label(labelframeleft, text='PostCode:', font=(
             'arial', 12, 'bold'), padx=2, pady=6)
