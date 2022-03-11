@@ -159,6 +159,44 @@ class Cust_Win:
             'times new roman', 12, 'bold'), padx=2)
         Table_Frame.place(x=435, y=50, width=860, height=490)
 
+        lblSearchBy = Label(Table_Frame, text='Search By:', font=(
+            'arial', 12, 'bold'), bg='red', fg='white')
+        lblSearchBy.grid(row=0, column=0, sticky=W, padx=2)
+
+        combo_Search = ttk.Combobox(
+            Table_Frame, font=('arial', 12, 'bold'), width=24, state='readonly')
+        combo_Search['values'] = ('Mobile', 'Ref')
+        combo_Search.current(0)
+        combo_Search.grid(row=0, column=1, padx=2)
+
+        txtSearch = ttk.Entry(Table_Frame, width=24,
+                              font=('arial', 13, 'bold'))
+        txtSearch.grid(row=0, column=2, padx=2)
+
+        btnSearch = Button(Table_Frame, text='Search', font=(
+            'arial', 12, 'bold'), bg='black', fg='gold', width=9)
+        btnSearch.grid(row=0, column=3, padx=1)
+
+        btnShowAll = Button(Table_Frame, text='Show All', font=(
+            'arial', 12, 'bold'), bg='black', fg='gold', width=9)
+        btnShowAll.grid(row=0, column=4, padx=1)
+
+        # -------Show data table-----
+        details_table = Frame(Table_Frame, bd=2, relief=RIDGE)
+        details_table.place(x=0, y=50, width=860, height=350)
+
+        scroll_x = ttk.Scrollbar(details_table, orient=HORIZONTAL)
+        scroll_y = ttk.Scrollbar(details_table, orient=VERTICAL)
+
+        self.Cust_Details_Table = ttk.Treeview(
+            details_table, columns=('ref', 'name', 'mother', 'gender', 'post', 'mobile', 'email', 'nationality', 'idproof', 'idnumber', 'address'), xscrollcommand=scroll_x.set, yscrollcommand=scroll_y.set)
+
+        scroll_x.pack(side=BOTTOM, fill=X)
+        scroll_y.pack(side=RIGHT, fill=Y)
+
+        scroll_x.config(command=self.Cust_Details_Table.xview)
+        scroll_y.config(command=self.Cust_Details_Table.yview)
+
 
 if __name__ == '__main__':
     root = Tk()
