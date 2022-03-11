@@ -99,10 +99,22 @@ class Cust_Win:
             'arial', 12, 'bold'), padx=2, pady=6)
         lblNationality.grid(row=7, column=0, sticky=W)
 
+        combo_Nationality = ttk.Combobox(
+            labelframeleft, font=('arial', 12, 'bold'), width=27, state='readonly')
+        combo_Nationality['values'] = ('Bangladeshi', 'Pakistani', 'Indian')
+        combo_Nationality.current(0)
+        combo_Nationality.grid(row=7, column=1)
+
         # id proof type combobox
         lblIdProof = Label(labelframeleft, text='Id Proof Type:', font=(
             'arial', 12, 'bold'), padx=2, pady=6)
         lblIdProof.grid(row=8, column=0, sticky=W)
+
+        combo_id = ttk.Combobox(
+            labelframeleft, font=('arial', 12, 'bold'), width=27, state='readonly')
+        combo_id['values'] = ('NID', 'DrivingLicense', 'Passport')
+        combo_id.current(0)
+        combo_id.grid(row=8, column=1)
 
         # Id number
         lblIdNumber = Label(labelframeleft, text='Id Number:', font=(
@@ -121,6 +133,31 @@ class Cust_Win:
         txtAddress = ttk.Entry(labelframeleft, width=29,
                                font=('arial', 13, 'bold'))
         txtAddress.grid(row=10, column=1)
+
+        # -----buttons-------
+        btn_frame = Frame(labelframeleft, bd=2, relief=RIDGE)
+        btn_frame.place(x=0, y=400, width=412, height=40)
+
+        btnAdd = Button(btn_frame, text='ADD', font=(
+            'arial', 12, 'bold'), bg='black', fg='gold', width=9)
+        btnAdd.grid(row=0, column=0, padx=1)
+
+        btnUpdate = Button(btn_frame, text='UPDATE', font=(
+            'arial', 12, 'bold'), bg='black', fg='gold', width=9)
+        btnUpdate.grid(row=0, column=1, padx=1)
+
+        btnDelete = Button(btn_frame, text='DELETE', font=(
+            'arial', 12, 'bold'), bg='black', fg='gold', width=9)
+        btnDelete.grid(row=0, column=3, padx=1)
+
+        btnReset = Button(btn_frame, text='RESET', font=(
+            'arial', 12, 'bold'), bg='black', fg='gold', width=9)
+        btnReset.grid(row=0, column=4, padx=1)
+
+        # -----table frame----
+        Table_Frame = LabelFrame(self.root, bd=2, relief=RIDGE, text='VIEW DETAILS AND SEARCH SYSTEM', font=(
+            'times new roman', 12, 'bold'), padx=2)
+        Table_Frame.place(x=435, y=50, width=860, height=490)
 
 
 if __name__ == '__main__':
