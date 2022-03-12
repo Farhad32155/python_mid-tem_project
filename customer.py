@@ -4,6 +4,8 @@ from turtle import width
 from PIL import Image, ImageTk
 from tkinter import ttk
 import random
+
+from click import command
 import mysql.connector
 from tkinter import messagebox
 
@@ -163,11 +165,11 @@ class Cust_Win:
             'arial', 12, 'bold'), bg='black', fg='gold', width=9)
         btnAdd.grid(row=0, column=0, padx=1)
 
-        btnUpdate = Button(btn_frame, text='UPDATE', font=(
+        btnUpdate = Button(btn_frame, text='UPDATE', command=self.update, font=(
             'arial', 12, 'bold'), bg='black', fg='gold', width=9)
         btnUpdate.grid(row=0, column=1, padx=1)
 
-        btnDelete = Button(btn_frame, text='DELETE', font=(
+        btnDelete = Button(btn_frame, text='DELETE', command=self.mDelete, font=(
             'arial', 12, 'bold'), bg='black', fg='gold', width=9)
         btnDelete.grid(row=0, column=3, padx=1)
 
@@ -313,6 +315,53 @@ class Cust_Win:
         self.var_id_proof.set(row[8])
         self.var_id_number.set(row[9])
         self.var_address.set(row[10])
+
+    def update(self):
+        if self.var_mobile.get() == '':
+            messagebox.showerror(
+                'Error', 'Please enter mobile number', parent=self.root)
+        else:
+            conn = mysql.connector.connect(
+                host='localhost', username='root', password='', database='management')
+            my_cursor = conn.cursor()
+            my_cursor.execute(
+                'update customer set Name=%s,Mother=%s,Gender=%s,PostCode=%s,Mobile=%s,Email=%s,Nationality=%s,Idproof=%s,Idnumber=%s,Address=%s where Ref=%s', (
+                    self.var_cust_name.get(),
+                    self.var_mother.get(),
+                    self.var_gender.get(),
+                    self.var_post.get(),
+                    self.var_mobile.get(),
+                    self.var_email.get(),
+                    self.var_nationality.get(),
+                    self.var_id_proof.get(),
+                    self.var_id_number.get(),
+                    self.var_address.get(),
+                    self.var_ref.get()
+                ))
+
+            conn.commit()
+            self.fetch_data()
+            conn.close()
+            messagebox.showinfo(
+                'Update', 'Customer has been updated successfully', parent=self.root)
+
+    def mDelete(self):
+        mDelete = messagebox.askyesno(
+            'Hotel Management System', 'Dou you want to delete this customer', parent=self.root)
+        if mDelete > 0:
+            conn = mysql.connector.connect(
+                host='localhost', username='root', password='', database='management')
+            my_cursor = conn.cursor()
+            query = 'delete from customer where Ref=%s'
+            value = (self.var_ref.get(),)
+            my_cursor.execute(query, value)
+
+        else:
+            if not mDelete:
+                return
+        conn.commit()
+        self.fetch_data()
+        conn.close()
 
 
 if __name__ == '__main__':
