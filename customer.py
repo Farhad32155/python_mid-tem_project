@@ -1,7 +1,11 @@
+from msilib import add_data
 from tkinter import*
 from turtle import width
 from PIL import Image, ImageTk
 from tkinter import ttk
+import random
+import mysql.connector
+from tkinter import messagebox
 
 
 class Cust_Win:
@@ -9,6 +13,22 @@ class Cust_Win:
         self.root = root
         self.root.title('Hotel Management System')
         self.root.geometry('1295x550+230+220')
+
+        # --------variables-------
+        self.var_ref = StringVar()
+        x = random.randint(1000, 9999)
+        self.var_ref.set(str(x))
+
+        self.var_cust_name = StringVar()
+        self.var_mother = StringVar()
+        self.var_gender = StringVar()
+        self.var_post = StringVar()
+        self.var_mobile = StringVar()
+        self.var_email = StringVar()
+        self.var_nationality = StringVar()
+        self.var_address = StringVar()
+        self.var_id_proof = StringVar()
+        self.var_id_number = StringVar()
 
         # -------Title---------
         lbl_title = Label(self.root, text='ADD CUSTOMER DETAILS', font=(
@@ -35,8 +55,8 @@ class Cust_Win:
             'arial', 12, 'bold'), padx=2, pady=6)
         lbl_cust_ref.grid(row=0, column=0, sticky=W)
 
-        entry_ref = ttk.Entry(labelframeleft, width=29,
-                              font=('arial', 13, 'bold'))
+        entry_ref = ttk.Entry(labelframeleft, width=29, textvariable=self.var_ref,
+                              font=('arial', 13, 'bold'), state='readonly')
         entry_ref.grid(row=0, column=1)
 
         # cust Name
@@ -44,7 +64,7 @@ class Cust_Win:
             'arial', 12, 'bold'), padx=2, pady=6)
         cname.grid(row=1, column=0, sticky=W)
 
-        txtcname = ttk.Entry(labelframeleft, width=29,
+        txtcname = ttk.Entry(labelframeleft, width=29, textvariable=self.var_cust_name,
                              font=('arial', 13, 'bold'))
         txtcname.grid(row=1, column=1)
 
@@ -53,7 +73,7 @@ class Cust_Win:
             'arial', 12, 'bold'), padx=2, pady=6)
         lblmname.grid(row=2, column=0, sticky=W)
 
-        txtmname = ttk.Entry(labelframeleft, width=29,
+        txtmname = ttk.Entry(labelframeleft, width=29, textvariable=self.var_mother,
                              font=('arial', 13, 'bold'))
         txtmname.grid(row=2, column=1)
 
@@ -63,7 +83,7 @@ class Cust_Win:
         label_gender.grid(row=3, column=0, sticky=W)
 
         combo_gender = ttk.Combobox(
-            labelframeleft, font=('arial', 12, 'bold'), width=27, state='readonly')
+            labelframeleft, textvariable=self.var_gender, font=('arial', 12, 'bold'), width=27, state='readonly')
         combo_gender['values'] = ('Male', 'Female', 'Other')
         combo_gender.current(0)
         combo_gender.grid(row=3, column=1)
@@ -73,7 +93,7 @@ class Cust_Win:
             'arial', 12, 'bold'), padx=2, pady=6)
         lblPostCode.grid(row=4, column=0, sticky=W)
 
-        txtPostCode = ttk.Entry(labelframeleft, width=29,
+        txtPostCode = ttk.Entry(labelframeleft, width=29, textvariable=self.var_post,
                                 font=('arial', 13, 'bold'))
         txtPostCode.grid(row=4, column=1)
 
@@ -82,16 +102,16 @@ class Cust_Win:
             'arial', 12, 'bold'), padx=2, pady=6)
         lblMobile.grid(row=5, column=0, sticky=W)
 
-        txtMobile = ttk.Entry(labelframeleft, width=29,
+        txtMobile = ttk.Entry(labelframeleft, width=29, textvariable=self.var_mobile,
                               font=('arial', 13, 'bold'))
         txtMobile.grid(row=5, column=1)
 
         # email
-        lblEmail = Label(labelframeleft, text='PostCode:', font=(
+        lblEmail = Label(labelframeleft, text='Email:', font=(
             'arial', 12, 'bold'), padx=2, pady=6)
         lblEmail.grid(row=6, column=0, sticky=W)
 
-        txtEmail = ttk.Entry(labelframeleft, width=29,
+        txtEmail = ttk.Entry(labelframeleft, textvariable=self.var_email, width=29,
                              font=('arial', 13, 'bold'))
         txtEmail.grid(row=6, column=1)
 
@@ -101,7 +121,7 @@ class Cust_Win:
         lblNationality.grid(row=7, column=0, sticky=W)
 
         combo_Nationality = ttk.Combobox(
-            labelframeleft, font=('arial', 12, 'bold'), width=27, state='readonly')
+            labelframeleft, textvariable=self.var_nationality, font=('arial', 12, 'bold'), width=27, state='readonly')
         combo_Nationality['values'] = ('Bangladeshi', 'Pakistani', 'Indian')
         combo_Nationality.current(0)
         combo_Nationality.grid(row=7, column=1)
@@ -112,7 +132,7 @@ class Cust_Win:
         lblIdProof.grid(row=8, column=0, sticky=W)
 
         combo_id = ttk.Combobox(
-            labelframeleft, font=('arial', 12, 'bold'), width=27, state='readonly')
+            labelframeleft, textvariable=self.var_id_proof, font=('arial', 12, 'bold'), width=27, state='readonly')
         combo_id['values'] = ('NID', 'DrivingLicense', 'Passport')
         combo_id.current(0)
         combo_id.grid(row=8, column=1)
@@ -122,7 +142,7 @@ class Cust_Win:
             'arial', 12, 'bold'), padx=2, pady=6)
         lblIdNumber.grid(row=9, column=0, sticky=W)
 
-        txtIdNumber = ttk.Entry(labelframeleft, width=29,
+        txtIdNumber = ttk.Entry(labelframeleft, width=29, textvariable=self.var_id_number,
                                 font=('arial', 13, 'bold'))
         txtIdNumber.grid(row=9, column=1)
 
@@ -131,7 +151,7 @@ class Cust_Win:
             'arial', 12, 'bold'), padx=2, pady=6)
         lblAddress.grid(row=10, column=0, sticky=W)
 
-        txtAddress = ttk.Entry(labelframeleft, width=29,
+        txtAddress = ttk.Entry(labelframeleft, width=29, textvariable=self.var_address,
                                font=('arial', 13, 'bold'))
         txtAddress.grid(row=10, column=1)
 
@@ -139,7 +159,7 @@ class Cust_Win:
         btn_frame = Frame(labelframeleft, bd=2, relief=RIDGE)
         btn_frame.place(x=0, y=400, width=412, height=40)
 
-        btnAdd = Button(btn_frame, text='ADD', font=(
+        btnAdd = Button(btn_frame, text='ADD', command=self.add_data, font=(
             'arial', 12, 'bold'), bg='black', fg='gold', width=9)
         btnAdd.grid(row=0, column=0, padx=1)
 
@@ -224,6 +244,57 @@ class Cust_Win:
         self.Cust_Details_Table.column('idnumber', width=100)
         self.Cust_Details_Table.column('address', width=100)
         self.Cust_Details_Table.pack(fill=BOTH, expand=1)
+        self.fetch_data()
+
+    def add_data(self):
+        if self.var_mobile.get() == '' or self.var_mother.get() == '':
+            messagebox.showerror(
+                'Error', 'All fields are required to fill', parent=self.root)
+        else:
+            try:
+
+                conn = mysql.connector.connect(
+                    host='localhost', username='root', password='', database='management')
+                my_cursor = conn.cursor()
+                my_cursor.execute(
+                    'insert into customer values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)', (
+
+                        self.var_ref.get(),
+                        self.var_cust_name.get(),
+                        self.var_mother.get(),
+                        self.var_gender.get(),
+                        self.var_post.get(),
+                        self.var_mobile.get(),
+                        self.var_email.get(),
+                        self.var_nationality.get(),
+                        self.var_id_proof.get(),
+                        self.var_id_number.get(),
+                        self.var_address.get()
+
+                    ))
+                conn.commit()
+                self.fetch_data()
+                conn.close()
+                messagebox.showinfo(
+                    'Success', 'Customer has been added', parent=self.root)
+
+            except Exception as es:
+                messagebox.showwarning(
+                    'Warning', f'Something went wrong:{str(es)}', parent=self.root)
+
+    def fetch_data(self):
+        conn = mysql.connector.connect(
+            host='localhost', username='root', password='', database='management')
+        my_cursor = conn.cursor()
+        my_cursor.execute('select * from customer')
+        rows = my_cursor.fetchall()
+        if len(rows) != 0:
+            self.Cust_Details_Table.delete(
+                *self.Cust_Details_Table.get_children())
+            for i in rows:
+                self.Cust_Details_Table.insert('', END, values=i)
+            conn.commit()
+        conn.close()
 
 
 if __name__ == '__main__':
