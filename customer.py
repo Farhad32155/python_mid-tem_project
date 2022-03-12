@@ -173,7 +173,7 @@ class Cust_Win:
             'arial', 12, 'bold'), bg='black', fg='gold', width=9)
         btnDelete.grid(row=0, column=3, padx=1)
 
-        btnReset = Button(btn_frame, text='RESET', font=(
+        btnReset = Button(btn_frame, text='RESET', command=self.reset, font=(
             'arial', 12, 'bold'), bg='black', fg='gold', width=9)
         btnReset.grid(row=0, column=4, padx=1)
 
@@ -362,6 +362,21 @@ class Cust_Win:
         conn.commit()
         self.fetch_data()
         conn.close()
+
+    def reset(self):
+        # self.var_ref.set('')
+        self.var_cust_name.set('')
+        self.var_mother.set('')
+        # self.var_gender.set('')
+        self.var_post.set('')
+        self.var_mobile.set('')
+        self.var_email.set('')
+        # self.var_nationality.set('')
+        # self.var_id_proof.set('')
+        self.var_id_number.set('')
+        self.var_address.set('')
+        x = random.randint(1000, 9999)
+        self.var_ref.set(str(x))
 
 
 if __name__ == '__main__':
